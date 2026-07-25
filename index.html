@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🍔 BurgerLab - Login</title>
+    <title>🍔 BurgerLab - Admin Panel</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <style>
@@ -18,13 +18,15 @@
             background: #0f0f0f;
             color: #f5f5f5;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 1rem;
         }
 
-        /* ===== LOGIN/REGISTER/FORGOT CONTAINER ===== */
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: #f5a623; border-radius: 10px; }
+
+        /* ===== AUTH CONTAINER ===== */
         .auth-container {
             background: #1a1a1a;
             padding: 2.5rem 2rem;
@@ -32,9 +34,9 @@
             border: 1px solid #2a2a2a;
             max-width: 440px;
             width: 100%;
+            margin: 2rem auto;
             box-shadow: 0 20px 60px rgba(0,0,0,0.6);
         }
-
         .auth-container .logo {
             text-align: center;
             font-size: 2.5rem;
@@ -48,7 +50,6 @@
             margin-bottom: 2rem;
             font-size: 0.95rem;
         }
-
         .auth-container label {
             display: block;
             font-weight: 600;
@@ -56,7 +57,6 @@
             margin-bottom: 0.3rem;
             color: #ccc;
         }
-
         .auth-container input, .auth-container select {
             width: 100%;
             padding: 0.8rem 1rem;
@@ -74,7 +74,6 @@
             box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.15);
         }
         .auth-container select option { background: #1a1a1a; color: #fff; }
-
         .auth-container .btn-primary {
             width: 100%;
             padding: 0.9rem;
@@ -88,11 +87,7 @@
             transition: 0.2s;
             margin-top: 0.5rem;
         }
-        .auth-container .btn-primary:hover {
-            background: #ffb833;
-            transform: scale(1.02);
-        }
-
+        .auth-container .btn-primary:hover { background: #ffb833; transform: scale(1.02); }
         .auth-container .switch-auth {
             text-align: center;
             margin-top: 1.2rem;
@@ -106,7 +101,6 @@
             font-weight: 600;
         }
         .auth-container .switch-auth a:hover { text-decoration: underline; }
-
         .auth-container .error-msg {
             background: #2a0a0a;
             color: #ff6b6b;
@@ -118,7 +112,6 @@
             border-left: 3px solid #ff6b6b;
         }
         .auth-container .error-msg.show { display: block; }
-
         .auth-container .success-msg {
             background: #0a2a0a;
             color: #6bff6b;
@@ -130,7 +123,6 @@
             border-left: 3px solid #6bff6b;
         }
         .auth-container .success-msg.show { display: block; }
-
         .remember-me {
             display: flex;
             align-items: center;
@@ -146,7 +138,6 @@
             margin: 0;
             cursor: pointer;
         }
-
         .forgot-link {
             color: #f5a623;
             cursor: pointer;
@@ -161,10 +152,11 @@
         #app {
             display: none;
             width: 100%;
-            max-width: 1280px;
-            padding: 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
+        /* ===== HEADER ===== */
         .app-header {
             display: flex;
             justify-content: space-between;
@@ -175,20 +167,25 @@
             padding-bottom: 1.5rem;
             border-bottom: 2px solid #2a2a2a;
         }
-
         .app-header .logo h1 { font-size: 2rem; font-weight: 800; }
         .app-header .logo span { color: #f5a623; }
-
         .app-header .right-group {
             display: flex;
             align-items: center;
             gap: 1rem;
             flex-wrap: wrap;
         }
-
         .app-header .user-info { color: #aaa; font-size: 0.9rem; }
         .app-header .user-info strong { color: #f5f5f5; }
-
+        .app-header .user-info .admin-badge {
+            background: #f5a623;
+            color: #0f0f0f;
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            margin-left: 0.3rem;
+        }
         .app-header .cart-badge {
             background: #f5a623;
             color: #0f0f0f;
@@ -204,7 +201,6 @@
             gap: 0.5rem;
         }
         .app-header .cart-badge:hover { transform: scale(1.04); background: #ffb833; }
-
         .app-header .logout-btn {
             background: transparent;
             border: 1px solid #444;
@@ -217,82 +213,175 @@
             transition: 0.2s;
         }
         .app-header .logout-btn:hover { border-color: #ff6b6b; color: #ff6b6b; }
-
-        .app-header .history-btn {
-            background: transparent;
-            border: 1px solid #2a5a3a;
-            color: #6bff6b;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .app-header .history-btn:hover { background: #0a2a0a; border-color: #6bff6b; }
-
-        /* ===== FILTER ===== */
-        .filter-wrap {
-            display: flex;
-            gap: 0.6rem;
-            flex-wrap: wrap;
-            margin-bottom: 2.5rem;
-        }
-        .filter-btn {
-            background: #1e1e1e;
-            border: 1px solid #333;
-            color: #aaa;
-            padding: 0.5rem 1.4rem;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .filter-btn:hover { border-color: #f5a623; color: #fff; }
-        .filter-btn.active { background: #f5a623; border-color: #f5a623; color: #0f0f0f; }
-
-        /* ===== MENU GRID ===== */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-            gap: 2rem;
-        }
-
-        .burger-card {
-            background: #1a1a1a;
-            border-radius: 24px;
-            padding: 1.5rem 1.2rem 1.8rem;
-            transition: 0.25s ease;
-            border: 1px solid #2a2a2a;
-            display: flex;
-            flex-direction: column;
-        }
-        .burger-card:hover {
-            transform: translateY(-6px);
-            border-color: #f5a623;
-            box-shadow: 0 12px 30px rgba(245, 166, 35, 0.08);
-        }
-        .burger-card .emoji-big { font-size: 3.8rem; line-height: 1; margin-bottom: 0.2rem; }
-        .burger-card h3 { font-size: 1.4rem; font-weight: 700; margin: 0.4rem 0 0.2rem; }
-        .burger-card .desc { color: #a0a0a0; font-size: 0.9rem; line-height: 1.5; margin: 0.3rem 0 0.6rem; flex: 1; }
-        .burger-card .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0 1rem; }
-        .burger-card .tags span { background: #2a2a2a; padding: 0.2rem 0.9rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: #bbb; }
-        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem; }
-        .price { font-size: 1.5rem; font-weight: 800; color: #f5a623; }
-        .price small { font-size: 0.9rem; font-weight: 400; color: #777; }
-        .order-btn {
+        .app-header .admin-btn {
             background: #f5a623;
             border: none;
             color: #0f0f0f;
-            font-weight: 700;
             padding: 0.5rem 1.2rem;
             border-radius: 40px;
+            font-weight: 700;
             font-size: 0.8rem;
             cursor: pointer;
             transition: 0.2s;
         }
-        .order-btn:hover { background: #ffb833; transform: scale(1.04); }
+        .app-header .admin-btn:hover { background: #ffb833; transform: scale(1.04); }
+
+        /* ===== TAB NAVIGATION ===== */
+        .tab-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #2a2a2a;
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #888;
+            padding: 0.6rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            border-radius: 12px 12px 0 0;
+        }
+        .tab-btn:hover { color: #fff; background: #1a1a1a; }
+        .tab-btn.active {
+            color: #f5a623;
+            background: #1a1a1a;
+            border-bottom: 3px solid #f5a623;
+        }
+
+        /* ===== TAB CONTENT ===== */
+        .tab-content {
+            display: none;
+            animation: fadeUp 0.25s ease;
+        }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== DASHBOARD ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: #1a1a1a;
+            padding: 1.5rem;
+            border-radius: 20px;
+            border: 1px solid #2a2a2a;
+            text-align: center;
+        }
+        .stat-card .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #f5a623;
+        }
+        .stat-card .stat-label {
+            color: #888;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        /* ===== TABLE ===== */
+        .table-wrap {
+            overflow-x: auto;
+            background: #1a1a1a;
+            border-radius: 16px;
+            border: 1px solid #2a2a2a;
+            padding: 0.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        th {
+            text-align: left;
+            padding: 0.8rem 1rem;
+            color: #888;
+            font-weight: 600;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #1a1a1a;
+            vertical-align: middle;
+        }
+        tr:hover td { background: #222; }
+        .table-wrap .btn-sm {
+            padding: 0.3rem 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-sm.danger { background: #6b1a1a; color: #ff6b6b; }
+        .btn-sm.danger:hover { background: #8a2222; }
+        .btn-sm.warning { background: #5a3a0a; color: #f5a623; }
+        .btn-sm.warning:hover { background: #7a4a0a; }
+        .btn-sm.success { background: #0a3a1a; color: #6bff6b; }
+        .btn-sm.success:hover { background: #0a5a2a; }
+        .btn-sm.primary { background: #1a2a4a; color: #6baaff; }
+        .btn-sm.primary:hover { background: #1a3a6a; }
+
+        /* ===== FORM TAMBAH MENU ===== */
+        .form-inline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: #1a1a1a;
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid #2a2a2a;
+            margin-bottom: 2rem;
+            align-items: end;
+        }
+        .form-inline .field {
+            flex: 1;
+            min-width: 150px;
+        }
+        .form-inline label {
+            display: block;
+            font-size: 0.75rem;
+            color: #888;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        .form-inline input, .form-inline select {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background: #0f0f0f;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+        .form-inline input:focus, .form-inline select:focus {
+            outline: none;
+            border-color: #f5a623;
+        }
+        .form-inline .btn-primary {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            background: #f5a623;
+            color: #0f0f0f;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            min-width: 120px;
+        }
+        .form-inline .btn-primary:hover { background: #ffb833; }
 
         /* ===== MODAL ===== */
         .modal-overlay {
@@ -311,7 +400,7 @@
         .modal-overlay.show { display: flex; }
         .modal-box {
             background: #1a1a1a;
-            max-width: 480px;
+            max-width: 500px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
@@ -320,29 +409,7 @@
             border: 1px solid #333;
             animation: fadeUp 0.25s ease;
         }
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
         .modal-box h2 { font-size: 1.6rem; margin-bottom: 1rem; }
-        .modal-box .order-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.6rem 0;
-            border-bottom: 1px solid #2a2a2a;
-        }
-        .modal-box .order-item button {
-            background: #444;
-            border: none;
-            color: #fff;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            margin-left: 8px;
-        }
-        .modal-box .order-item button:hover { background: #ff6b6b; }
-        .modal-box .total { font-size: 1.4rem; font-weight: 700; margin: 1rem 0 1.2rem; color: #f5a623; }
         .modal-box .close-modal {
             background: #333;
             border: none;
@@ -353,26 +420,40 @@
             cursor: pointer;
             width: 100%;
             transition: 0.2s;
+            margin-top: 1rem;
         }
         .modal-box .close-modal:hover { background: #444; }
-        .empty-cart { color: #888; font-style: italic; padding: 0.8rem 0; }
-
-        .history-item {
-            background: #0f0f0f;
-            padding: 0.8rem 1rem;
-            border-radius: 12px;
-            margin-bottom: 0.6rem;
-            border-left: 3px solid #f5a623;
+        .modal-box .form-group {
+            margin-bottom: 1rem;
         }
-        .history-item .h-date { color: #888; font-size: 0.75rem; }
-        .history-item .h-items { color: #ddd; font-size: 0.9rem; }
-        .history-item .h-total { color: #f5a623; font-weight: 700; }
+        .modal-box .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: #888;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        .modal-box .form-group input, .modal-box .form-group select {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background: #0f0f0f;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+        .modal-box .form-group input:focus, .modal-box .form-group select:focus {
+            outline: none;
+            border-color: #f5a623;
+        }
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .app-header .logo h1 { font-size: 1.4rem; }
-            .app-header .right-group { gap: 0.5rem; flex-wrap: wrap; }
-            .menu-grid { grid-template-columns: 1fr; }
-            .auth-container { padding: 1.8rem 1.2rem; }
+            .app-header .right-group { gap: 0.5rem; }
+            .form-inline { flex-direction: column; }
+            .form-inline .field { min-width: 100%; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -384,25 +465,18 @@
     <div class="auth-container" id="loginPage">
         <div class="logo">🍔 <span>Burger</span>Lab</div>
         <div class="sub">Login untuk memesan burger favoritmu</div>
-
         <div class="error-msg" id="loginError">Username atau password salah!</div>
         <div class="success-msg" id="loginSuccess"></div>
-
         <label for="loginUser">Username</label>
         <input type="text" id="loginUser" placeholder="Masukkan username" />
-
         <label for="loginPass">Password</label>
         <input type="password" id="loginPass" placeholder="Masukkan password" />
-
         <div class="remember-me">
             <input type="checkbox" id="rememberMe" />
             <label for="rememberMe">Ingat saya</label>
         </div>
-
         <div class="forgot-link" id="forgotLink">🔑 Lupa password?</div>
-
         <button class="btn-primary" id="loginBtn">🔑 Login</button>
-
         <div class="switch-auth">
             Belum punya akun? <a id="switchToRegister">Daftar di sini</a>
         </div>
@@ -414,31 +488,23 @@
     <div class="auth-container" id="registerPage" style="display:none;">
         <div class="logo">📝 <span>Daftar</span> Akun</div>
         <div class="sub">Buat akun baru untuk mulai memesan</div>
-
         <div class="error-msg" id="registerError"></div>
-
         <label for="regUser">Username</label>
         <input type="text" id="regUser" placeholder="Pilih username" />
-
         <label for="regPass">Password</label>
         <input type="password" id="regPass" placeholder="Buat password" />
-
         <label for="regPassConfirm">Konfirmasi Password</label>
         <input type="password" id="regPassConfirm" placeholder="Ketik ulang password" />
-
-        <label for="regSecurityQuestion">Pertanyaan Keamanan (untuk reset password)</label>
+        <label for="regSecurityQuestion">Pertanyaan Keamanan</label>
         <select id="regSecurityQuestion">
             <option value="nama_hewan">Nama hewan peliharaan pertama?</option>
             <option value="sekolah">Nama sekolah dasar?</option>
             <option value="film">Film favorit?</option>
             <option value="makanan">Makanan favorit?</option>
         </select>
-
         <label for="regSecurityAnswer">Jawaban</label>
         <input type="text" id="regSecurityAnswer" placeholder="Jawaban pertanyaan keamanan" />
-
         <button class="btn-primary" id="registerBtn">✅ Daftar</button>
-
         <div class="switch-auth">
             Sudah punya akun? <a id="switchToLogin">Login di sini</a>
         </div>
@@ -450,24 +516,17 @@
     <div class="auth-container" id="forgotPage" style="display:none;">
         <div class="logo">🔑 <span>Reset</span> Password</div>
         <div class="sub">Jawab pertanyaan keamanan untuk mereset password</div>
-
         <div class="error-msg" id="forgotError"></div>
         <div class="success-msg" id="forgotSuccess"></div>
-
         <label for="forgotUser">Username</label>
         <input type="text" id="forgotUser" placeholder="Masukkan username" />
-
         <label for="forgotQuestion">Pertanyaan Keamanan</label>
         <input type="text" id="forgotQuestion" disabled style="color:#888;" />
-
         <label for="forgotAnswer">Jawaban</label>
         <input type="text" id="forgotAnswer" placeholder="Masukkan jawaban" />
-
         <label for="forgotNewPass">Password Baru</label>
         <input type="password" id="forgotNewPass" placeholder="Buat password baru" />
-
         <button class="btn-primary" id="resetBtn">🔄 Reset Password</button>
-
         <div class="switch-auth">
             <a id="backToLogin">← Kembali ke Login</a>
         </div>
@@ -477,29 +536,145 @@
     <!-- MAIN APP -->
     <!-- ============================================================ -->
     <div id="app">
+        <!-- HEADER -->
         <div class="app-header">
             <div class="logo">
                 <h1>🍔 <span>Burger</span>Lab</h1>
             </div>
             <div class="right-group">
-                <span class="user-info">👤 <strong id="currentUser">User</strong></span>
+                <span class="user-info">
+                    👤 <strong id="currentUser">User</strong>
+                    <span class="admin-badge" id="adminBadge" style="display:none;">ADMIN</span>
+                </span>
                 <button class="cart-badge" id="cartBtn">
                     🛒 <span id="cartCount">0</span>
                 </button>
-                <button class="history-btn" id="historyBtn">📜 Riwayat</button>
+                <button class="admin-btn" id="adminToggleBtn">⚙️ Admin Panel</button>
                 <button class="logout-btn" id="logoutBtn">🚪 Logout</button>
             </div>
         </div>
 
-        <div class="filter-wrap" id="filterWrap">
-            <button class="filter-btn active" data-filter="all">Semua</button>
-            <button class="filter-btn" data-filter="classic">Klasik</button>
-            <button class="filter-btn" data-filter="bbq">BBQ</button>
-            <button class="filter-btn" data-filter="spicy">Pedas</button>
-            <button class="filter-btn" data-filter="chicken">Ayam</button>
+        <!-- ADMIN PANEL (hidden by default) -->
+        <div id="adminPanel" style="display:none;">
+            <!-- TAB NAV -->
+            <div class="tab-nav" id="tabNav">
+                <button class="tab-btn active" data-tab="dashboard">📊 Dashboard</button>
+                <button class="tab-btn" data-tab="menu">🍔 Kelola Menu</button>
+                <button class="tab-btn" data-tab="users">👥 Kelola User</button>
+                <button class="tab-btn" data-tab="history">📜 Semua Riwayat</button>
+            </div>
+
+            <!-- TAB: DASHBOARD -->
+            <div class="tab-content active" id="tabDashboard">
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="statMenu">0</div>
+                        <div class="stat-label">Total Menu</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="statUsers">0</div>
+                        <div class="stat-label">Total User</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="statOrders">0</div>
+                        <div class="stat-label">Total Pesanan</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="statRevenue">Rp 0</div>
+                        <div class="stat-label">Total Pendapatan</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: KELOLA MENU -->
+            <div class="tab-content" id="tabMenu">
+                <div class="form-inline" id="addMenuForm">
+                    <div class="field">
+                        <label>Nama Menu</label>
+                        <input type="text" id="menuName" placeholder="Nama burger" />
+                    </div>
+                    <div class="field">
+                        <label>Emoji</label>
+                        <input type="text" id="menuEmoji" placeholder="🍔" maxlength="2" />
+                    </div>
+                    <div class="field">
+                        <label>Deskripsi</label>
+                        <input type="text" id="menuDesc" placeholder="Deskripsi singkat" />
+                    </div>
+                    <div class="field">
+                        <label>Harga (Rp)</label>
+                        <input type="number" id="menuPrice" placeholder="45000" />
+                    </div>
+                    <div class="field">
+                        <label>Tag (pisahkan koma)</label>
+                        <input type="text" id="menuTags" placeholder="classic, beef" />
+                    </div>
+                    <button class="btn-primary" id="addMenuBtn">➕ Tambah Menu</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Emoji</th>
+                                <th>Nama</th>
+                                <th>Deskripsi</th>
+                                <th>Harga</th>
+                                <th>Tags</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="menuTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB: KELOLA USER -->
+            <div class="tab-content" id="tabUsers">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>Pertanyaan Keamanan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB: SEMUA RIWAYAT -->
+            <div class="tab-content" id="tabHistory">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Tanggal</th>
+                                <th>Pesanan</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
-        <div class="menu-grid" id="menuGrid"></div>
+        <!-- MENU GRID (user view) -->
+        <div id="userMenuView">
+            <div class="filter-wrap" id="filterWrap">
+                <button class="filter-btn active" data-filter="all">Semua</button>
+                <button class="filter-btn" data-filter="classic">Klasik</button>
+                <button class="filter-btn" data-filter="bbq">BBQ</button>
+                <button class="filter-btn" data-filter="spicy">Pedas</button>
+                <button class="filter-btn" data-filter="chicken">Ayam</button>
+            </div>
+            <div class="menu-grid" id="menuGrid"></div>
+        </div>
     </div>
 
     <!-- ============================================================ -->
@@ -508,24 +683,42 @@
     <div class="modal-overlay" id="cartModal">
         <div class="modal-box">
             <h2>🛒 Pesanan Kamu</h2>
-            <div id="cartItems">
-                <div class="empty-cart">Belum ada pesanan.</div>
-            </div>
+            <div id="cartItems"><div class="empty-cart">Belum ada pesanan.</div></div>
             <div class="total" id="cartTotal">Total: Rp 0</div>
+            <button class="btn-primary" id="checkoutBtn" style="width:100%;margin-top:0.5rem;">✅ Checkout & Simpan Riwayat</button>
             <button class="close-modal" id="closeCartModal">Tutup</button>
         </div>
     </div>
 
     <!-- ============================================================ -->
-    <!-- MODAL RIWAYAT -->
+    <!-- MODAL EDIT MENU -->
     <!-- ============================================================ -->
-    <div class="modal-overlay" id="historyModal">
+    <div class="modal-overlay" id="editMenuModal">
         <div class="modal-box">
-            <h2>📜 Riwayat Pesanan</h2>
-            <div id="historyList">
-                <div class="empty-cart">Belum ada riwayat pesanan.</div>
+            <h2>✏️ Edit Menu</h2>
+            <input type="hidden" id="editMenuId" />
+            <div class="form-group">
+                <label>Nama Menu</label>
+                <input type="text" id="editMenuName" />
             </div>
-            <button class="close-modal" id="closeHistoryModal">Tutup</button>
+            <div class="form-group">
+                <label>Emoji</label>
+                <input type="text" id="editMenuEmoji" maxlength="2" />
+            </div>
+            <div class="form-group">
+                <label>Deskripsi</label>
+                <input type="text" id="editMenuDesc" />
+            </div>
+            <div class="form-group">
+                <label>Harga (Rp)</label>
+                <input type="number" id="editMenuPrice" />
+            </div>
+            <div class="form-group">
+                <label>Tag (pisahkan koma)</label>
+                <input type="text" id="editMenuTags" />
+            </div>
+            <button class="btn-primary" id="saveEditMenuBtn" style="width:100%;">💾 Simpan Perubahan</button>
+            <button class="close-modal" id="closeEditModal">Batal</button>
         </div>
     </div>
 
@@ -534,9 +727,9 @@
     <!-- ============================================================ -->
     <script>
         // ============================================================
-        // DATA MENU
+        // DATA MENU (default)
         // ============================================================
-        const menuData = [
+        const defaultMenu = [
             { id: 1, name: 'Classic Cheeseburger', emoji: '🧀', desc: 'Daging sapi juicy, keju cheddar leleh, selada, tomat, dan acar.', tags: ['classic', 'beef'], price: 45000 },
             { id: 2, name: 'BBQ Smoked Burger', emoji: '🔥', desc: 'Daging sapi dengan saus BBQ smoky, bawang karamel, keju gouda.', tags: ['bbq', 'beef'], price: 52000 },
             { id: 3, name: 'Spicy Chicken Crispy', emoji: '🌶️', desc: 'Ayam goreng renyah dengan saus pedas mayo, kol segar, dan cabai.', tags: ['spicy', 'chicken'], price: 43000 },
@@ -545,8 +738,25 @@
             { id: 6, name: 'Hot Lava Burger', emoji: '🌋', desc: 'Daging sapi dengan sambal lava pedas, keju pepper jack, dan jalapeño.', tags: ['spicy', 'beef'], price: 55000 },
         ];
 
+        const MENU_KEY = 'burgerlab_menu';
+
+        function getMenu() {
+            const data = localStorage.getItem(MENU_KEY);
+            if (data) {
+                try { return JSON.parse(data); }
+                catch { return defaultMenu; }
+            }
+            // init default
+            localStorage.setItem(MENU_KEY, JSON.stringify(defaultMenu));
+            return defaultMenu;
+        }
+
+        function saveMenu(menu) {
+            localStorage.setItem(MENU_KEY, JSON.stringify(menu));
+        }
+
         // ============================================================
-        // AUTH SYSTEM (localStorage)
+        // AUTH SYSTEM
         // ============================================================
         const USERS_KEY = 'burgerlab_users';
         const SESSION_KEY = 'burgerlab_session';
@@ -565,11 +775,7 @@
         }
 
         function setSession(username, remember = false) {
-            localStorage.setItem(SESSION_KEY, JSON.stringify({ 
-                username, 
-                loginAt: Date.now(),
-                remember: remember
-            }));
+            localStorage.setItem(SESSION_KEY, JSON.stringify({ username, loginAt: Date.now(), remember }));
         }
 
         function clearSession() {
@@ -594,6 +800,23 @@
             saveHistory(username, history);
         }
 
+        function getAllHistories() {
+            const users = getUsers();
+            const all = [];
+            for (const username in users) {
+                const h = getHistory(username);
+                h.forEach(entry => {
+                    all.push({ username, ...entry });
+                });
+            }
+            return all.sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+
+        function isAdmin(username) {
+            const users = getUsers();
+            return users[username] && users[username].role === 'admin';
+        }
+
         // ============================================================
         // DOM REFS
         // ============================================================
@@ -602,7 +825,12 @@
         const forgotPage = document.getElementById('forgotPage');
         const app = document.getElementById('app');
         const currentUser = document.getElementById('currentUser');
+        const adminBadge = document.getElementById('adminBadge');
+        const adminToggleBtn = document.getElementById('adminToggleBtn');
+        const adminPanel = document.getElementById('adminPanel');
+        const userMenuView = document.getElementById('userMenuView');
 
+        // Auth
         const loginUser = document.getElementById('loginUser');
         const loginPass = document.getElementById('loginPass');
         const loginBtn = document.getElementById('loginBtn');
@@ -630,8 +858,32 @@
         const switchToRegister = document.getElementById('switchToRegister');
         const switchToLogin = document.getElementById('switchToLogin');
         const backToLogin = document.getElementById('backToLogin');
-
         const logoutBtn = document.getElementById('logoutBtn');
+
+        // Cart
+        const cartBtn = document.getElementById('cartBtn');
+        const cartCount = document.getElementById('cartCount');
+        const cartModal = document.getElementById('cartModal');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const closeCartModal = document.getElementById('closeCartModal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+
+        // Admin
+        const tabNav = document.getElementById('tabNav');
+        const menuTableBody = document.getElementById('menuTableBody');
+        const userTableBody = document.getElementById('userTableBody');
+        const historyTableBody = document.getElementById('historyTableBody');
+        const editMenuModal = document.getElementById('editMenuModal');
+        const closeEditModal = document.getElementById('closeEditModal');
+
+        // ============================================================
+        // STATE
+        // ============================================================
+        let cart = [];
+        let currentUsername = '';
+        let isAdminUser = false;
+        let editMenuId = null;
 
         // ============================================================
         // AUTH FUNCTIONS
@@ -669,7 +921,20 @@
             registerPage.style.display = 'none';
             forgotPage.style.display = 'none';
             app.style.display = 'block';
+            currentUsername = username;
             currentUser.textContent = username;
+            isAdminUser = isAdmin(username);
+
+            if (isAdminUser) {
+                adminBadge.style.display = 'inline';
+                adminToggleBtn.style.display = 'inline-block';
+            } else {
+                adminBadge.style.display = 'none';
+                adminToggleBtn.style.display = 'none';
+                adminPanel.style.display = 'none';
+                userMenuView.style.display = 'block';
+            }
+
             renderMenu('all');
             updateCartUI();
         }
@@ -691,9 +956,7 @@
                 loginError.classList.remove('show');
                 loginSuccess.textContent = '✅ Login berhasil!';
                 loginSuccess.classList.add('show');
-                setTimeout(() => {
-                    showApp(username);
-                }, 500);
+                setTimeout(() => showApp(username), 500);
             } else {
                 loginError.textContent = 'Username atau password salah!';
                 loginError.classList.add('show');
@@ -715,19 +978,16 @@
                 registerError.style.display = 'block';
                 return;
             }
-
             if (username.length < 3) {
                 registerError.textContent = 'Username minimal 3 karakter!';
                 registerError.style.display = 'block';
                 return;
             }
-
             if (password.length < 4) {
                 registerError.textContent = 'Password minimal 4 karakter!';
                 registerError.style.display = 'block';
                 return;
             }
-
             if (password !== confirm) {
                 registerError.textContent = 'Password dan konfirmasi tidak cocok!';
                 registerError.style.display = 'block';
@@ -743,6 +1003,7 @@
 
             users[username] = {
                 password: password,
+                role: 'user',
                 securityQuestion: question,
                 securityAnswer: answer.toLowerCase()
             };
@@ -766,7 +1027,6 @@
                 forgotError.style.display = 'block';
                 return;
             }
-
             if (newPass.length < 4) {
                 forgotError.textContent = 'Password baru minimal 4 karakter!';
                 forgotError.style.display = 'block';
@@ -779,7 +1039,6 @@
                 forgotError.style.display = 'block';
                 return;
             }
-
             if (users[username].securityAnswer !== answer) {
                 forgotError.textContent = 'Jawaban keamanan salah!';
                 forgotError.style.display = 'block';
@@ -788,7 +1047,7 @@
 
             users[username].password = newPass;
             saveUsers(users);
-            forgotSuccess.textContent = '✅ Password berhasil direset! Silakan login.';
+            forgotSuccess.textContent = '✅ Password berhasil direset!';
             forgotSuccess.classList.add('show');
             forgotError.style.display = 'none';
 
@@ -809,7 +1068,7 @@
         }
 
         // ============================================================
-        // CHECK SESSION ON LOAD
+        // CHECK SESSION
         // ============================================================
         function checkSession() {
             const session = getSession();
@@ -843,22 +1102,68 @@
 
         logoutBtn.addEventListener('click', handleLogout);
 
-        // ============================================================
-        // CART STATE
-        // ============================================================
-        let cart = [];
+        forgotUser.addEventListener('input', function() {
+            const username = this.value.trim();
+            if (!username) { forgotQuestion.value = ''; return; }
+            const users = getUsers();
+            if (users[username]) {
+                const map = { 'nama_hewan': 'Nama hewan peliharaan pertama?', 'sekolah': 'Nama sekolah dasar?', 'film': 'Film favorit?', 'makanan': 'Makanan favorit?' };
+                forgotQuestion.value = map[users[username].securityQuestion] || 'Pertanyaan tidak ditemukan';
+            } else {
+                forgotQuestion.value = 'Username tidak ditemukan';
+            }
+        });
 
         // ============================================================
-        // RENDER MENU
+        // ADMIN TOGGLE
+        // ============================================================
+        adminToggleBtn.addEventListener('click', function() {
+            if (adminPanel.style.display === 'none') {
+                adminPanel.style.display = 'block';
+                userMenuView.style.display = 'none';
+                this.textContent = '👁️ Lihat Menu';
+                renderAdminDashboard();
+                renderMenuTable();
+                renderUserTable();
+                renderAllHistory();
+            } else {
+                adminPanel.style.display = 'none';
+                userMenuView.style.display = 'block';
+                this.textContent = '⚙️ Admin Panel';
+                renderMenu('all');
+            }
+        });
+
+        // ============================================================
+        // TAB NAVIGATION
+        // ============================================================
+        tabNav.addEventListener('click', (e) => {
+            const btn = e.target.closest('.tab-btn');
+            if (!btn) return;
+
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById('tab' + btn.dataset.tab.charAt(0).toUpperCase() + btn.dataset.tab.slice(1)).classList.add('active');
+
+            // refresh data
+            if (btn.dataset.tab === 'dashboard') renderAdminDashboard();
+            if (btn.dataset.tab === 'menu') renderMenuTable();
+            if (btn.dataset.tab === 'users') renderUserTable();
+            if (btn.dataset.tab === 'history') renderAllHistory();
+        });
+
+        // ============================================================
+        // RENDER MENU (user view)
         // ============================================================
         function renderMenu(filter = 'all') {
             const grid = document.getElementById('menuGrid');
-            const filtered = filter === 'all'
-                ? menuData
-                : menuData.filter(item => item.tags.includes(filter));
+            const menu = getMenu();
+            const filtered = filter === 'all' ? menu : menu.filter(item => item.tags.includes(filter));
 
             if (filtered.length === 0) {
-                grid.innerHTML = `<p style="color:#888;grid-column:1/-1;text-align:center;padding:2rem;">Tidak ada menu untuk filter ini.</p>`;
+                grid.innerHTML = `<p style="color:#888;grid-column:1/-1;text-align:center;padding:2rem;">Tidak ada menu.</p>`;
                 return;
             }
 
@@ -867,9 +1172,7 @@
                     <div class="emoji-big">${item.emoji}</div>
                     <h3>${item.name}</h3>
                     <p class="desc">${item.desc}</p>
-                    <div class="tags">
-                        ${item.tags.map(t => `<span>#${t}</span>`).join('')}
-                    </div>
+                    <div class="tags">${item.tags.map(t => `<span>#${t}</span>`).join('')}</div>
                     <div class="card-footer">
                         <span class="price">Rp ${item.price.toLocaleString()}</span>
                         <button class="order-btn" data-id="${item.id}">+ Pesan</button>
@@ -878,10 +1181,7 @@
             `).join('');
 
             document.querySelectorAll('.order-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const id = parseInt(btn.dataset.id);
-                    addToCart(id);
-                });
+                btn.addEventListener('click', () => addToCart(parseInt(btn.dataset.id)));
             });
         }
 
@@ -891,10 +1191,8 @@
         document.getElementById('filterWrap').addEventListener('click', (e) => {
             const btn = e.target.closest('.filter-btn');
             if (!btn) return;
-
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
             renderMenu(btn.dataset.filter);
         });
 
@@ -902,18 +1200,15 @@
         // CART FUNCTIONS
         // ============================================================
         function addToCart(id) {
-            const item = menuData.find(m => m.id === id);
+            const menu = getMenu();
+            const item = menu.find(m => m.id === id);
             if (!item) return;
 
             const existing = cart.find(c => c.id === id);
-            if (existing) {
-                existing.qty += 1;
-            } else {
-                cart.push({ ...item, qty: 1 });
-            }
+            if (existing) existing.qty += 1;
+            else cart.push({ ...item, qty: 1 });
 
             updateCartUI();
-
             const btn = document.querySelector(`.order-btn[data-id="${id}"]`);
             if (btn) {
                 btn.textContent = '✓ Ditambahkan';
@@ -924,31 +1219,25 @@
         function removeFromCart(id) {
             const idx = cart.findIndex(c => c.id === id);
             if (idx === -1) return;
-            if (cart[idx].qty > 1) {
-                cart[idx].qty -= 1;
-            } else {
-                cart.splice(idx, 1);
-            }
+            if (cart[idx].qty > 1) cart[idx].qty -= 1;
+            else cart.splice(idx, 1);
             updateCartUI();
             renderCartModal();
         }
 
         function updateCartUI() {
-            const totalItems = cart.reduce((sum, i) => sum + i.qty, 0);
-            document.getElementById('cartCount').textContent = totalItems;
+            const total = cart.reduce((sum, i) => sum + i.qty, 0);
+            cartCount.textContent = total;
         }
 
         function renderCartModal() {
-            const container = document.getElementById('cartItems');
-            const totalEl = document.getElementById('cartTotal');
-
             if (cart.length === 0) {
-                container.innerHTML = `<div class="empty-cart">Belum ada pesanan.</div>`;
-                totalEl.textContent = 'Total: Rp 0';
+                cartItems.innerHTML = `<div class="empty-cart">Belum ada pesanan.</div>`;
+                cartTotal.textContent = 'Total: Rp 0';
                 return;
             }
 
-            container.innerHTML = cart.map(item => `
+            cartItems.innerHTML = cart.map(item => `
                 <div class="order-item">
                     <span>${item.emoji} ${item.name} <strong>×${item.qty}</strong></span>
                     <span>Rp ${(item.price * item.qty).toLocaleString()}
@@ -958,21 +1247,15 @@
             `).join('');
 
             const total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
-            totalEl.textContent = `Total: Rp ${total.toLocaleString()}`;
+            cartTotal.textContent = `Total: Rp ${total.toLocaleString()}`;
 
             document.querySelectorAll('.remove-item').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    removeFromCart(parseInt(btn.dataset.id));
-                });
+                btn.addEventListener('click', () => removeFromCart(parseInt(btn.dataset.id)));
             });
         }
 
-        function checkout() {
-            if (cart.length === 0) {
-                alert('Keranjang kosong!');
-                return;
-            }
-
+        function handleCheckout() {
+            if (cart.length === 0) { alert('Keranjang kosong!'); return; }
             const session = getSession();
             if (!session) return;
 
@@ -981,108 +1264,214 @@
             alert('✅ Pesanan berhasil! Cek riwayat pesananmu.');
             cart = [];
             updateCartUI();
-            document.getElementById('cartModal').classList.remove('show');
+            cartModal.classList.remove('show');
+            renderCartModal();
         }
 
         // ============================================================
-        // HISTORY
+        // MODAL CART
         // ============================================================
-        function renderHistory() {
-            const session = getSession();
-            if (!session) return;
-
-            const history = getHistory(session.username);
-            const container = document.getElementById('historyList');
-
-            if (history.length === 0) {
-                container.innerHTML = `<div class="empty-cart">Belum ada riwayat pesanan.</div>`;
-                return;
-            }
-
-            container.innerHTML = history.reverse().map(h => `
-                <div class="history-item">
-                    <div class="h-date">📅 ${h.date}</div>
-                    <div class="h-items">${h.items.map(i => `${i.name} ×${i.qty}`).join(', ')}</div>
-                    <div class="h-total">Total: Rp ${h.total.toLocaleString()}</div>
-                </div>
-            `).join('');
-        }
-
-        // ============================================================
-        // MODAL
-        // ============================================================
-        const cartModal = document.getElementById('cartModal');
-        document.getElementById('cartBtn').addEventListener('click', () => {
+        cartBtn.addEventListener('click', () => {
             renderCartModal();
             cartModal.classList.add('show');
         });
-        document.getElementById('closeCartModal').addEventListener('click', () => {
-            cartModal.classList.remove('show');
-        });
-        cartModal.addEventListener('click', (e) => {
-            if (e.target === cartModal) cartModal.classList.remove('show');
+        closeCartModal.addEventListener('click', () => cartModal.classList.remove('show'));
+        cartModal.addEventListener('click', (e) => { if (e.target === cartModal) cartModal.classList.remove('show'); });
+        checkoutBtn.addEventListener('click', handleCheckout);
+
+        // ============================================================
+        // ADMIN: DASHBOARD
+        // ============================================================
+        function renderAdminDashboard() {
+            const menu = getMenu();
+            const users = getUsers();
+            const allHistory = getAllHistories();
+
+            document.getElementById('statMenu').textContent = menu.length;
+            document.getElementById('statUsers').textContent = Object.keys(users).length;
+            document.getElementById('statOrders').textContent = allHistory.length;
+
+            const totalRevenue = allHistory.reduce((sum, h) => sum + h.total, 0);
+            document.getElementById('statRevenue').textContent = 'Rp ' + totalRevenue.toLocaleString();
+        }
+
+        // ============================================================
+        // ADMIN: KELOLA MENU
+        // ============================================================
+        function renderMenuTable() {
+            const menu = getMenu();
+            menuTableBody.innerHTML = menu.map(item => `
+                <tr>
+                    <td>${item.id}</td>
+                    <td>${item.emoji}</td>
+                    <td><strong>${item.name}</strong></td>
+                    <td>${item.desc}</td>
+                    <td>Rp ${item.price.toLocaleString()}</td>
+                    <td>${item.tags.join(', ')}</td>
+                    <td>
+                        <button class="btn-sm warning" onclick="editMenuItem(${item.id})">✏️</button>
+                        <button class="btn-sm danger" onclick="deleteMenuItem(${item.id})">🗑️</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        window.editMenuItem = function(id) {
+            const menu = getMenu();
+            const item = menu.find(m => m.id === id);
+            if (!item) return;
+
+            editMenuId = id;
+            document.getElementById('editMenuName').value = item.name;
+            document.getElementById('editMenuEmoji').value = item.emoji;
+            document.getElementById('editMenuDesc').value = item.desc;
+            document.getElementById('editMenuPrice').value = item.price;
+            document.getElementById('editMenuTags').value = item.tags.join(', ');
+            editMenuModal.classList.add('show');
+        };
+
+        window.deleteMenuItem = function(id) {
+            if (!confirm('Yakin hapus menu ini?')) return;
+            let menu = getMenu();
+            menu = menu.filter(m => m.id !== id);
+            saveMenu(menu);
+            renderMenuTable();
+            renderMenu('all');
+            renderAdminDashboard();
+        };
+
+        document.getElementById('addMenuBtn').addEventListener('click', function() {
+            const name = document.getElementById('menuName').value.trim();
+            const emoji = document.getElementById('menuEmoji').value.trim() || '🍔';
+            const desc = document.getElementById('menuDesc').value.trim();
+            const price = parseInt(document.getElementById('menuPrice').value);
+            const tags = document.getElementById('menuTags').value.split(',').map(t => t.trim()).filter(t => t);
+
+            if (!name || !price || tags.length === 0) {
+                alert('Nama, harga, dan tag harus diisi!');
+                return;
+            }
+
+            const menu = getMenu();
+            const newId = Math.max(...menu.map(m => m.id), 0) + 1;
+            menu.push({ id: newId, name, emoji, desc, price, tags });
+            saveMenu(menu);
+            renderMenuTable();
+            renderMenu('all');
+            renderAdminDashboard();
+
+            document.getElementById('menuName').value = '';
+            document.getElementById('menuEmoji').value = '';
+            document.getElementById('menuDesc').value = '';
+            document.getElementById('menuPrice').value = '';
+            document.getElementById('menuTags').value = '';
+            alert('✅ Menu berhasil ditambahkan!');
         });
 
-        const historyModal = document.getElementById('historyModal');
-        document.getElementById('historyBtn').addEventListener('click', () => {
-            renderHistory();
-            historyModal.classList.add('show');
-        });
-        document.getElementById('closeHistoryModal').addEventListener('click', () => {
-            historyModal.classList.remove('show');
-        });
-        historyModal.addEventListener('click', (e) => {
-            if (e.target === historyModal) historyModal.classList.remove('show');
+        document.getElementById('saveEditMenuBtn').addEventListener('click', function() {
+            const name = document.getElementById('editMenuName').value.trim();
+            const emoji = document.getElementById('editMenuEmoji').value.trim() || '🍔';
+            const desc = document.getElementById('editMenuDesc').value.trim();
+            const price = parseInt(document.getElementById('editMenuPrice').value);
+            const tags = document.getElementById('editMenuTags').value.split(',').map(t => t.trim()).filter(t => t);
+
+            if (!name || !price || tags.length === 0) {
+                alert('Nama, harga, dan tag harus diisi!');
+                return;
+            }
+
+            let menu = getMenu();
+            const idx = menu.findIndex(m => m.id === editMenuId);
+            if (idx === -1) return;
+
+            menu[idx] = { ...menu[idx], name, emoji, desc, price, tags };
+            saveMenu(menu);
+            renderMenuTable();
+            renderMenu('all');
+            renderAdminDashboard();
+            editMenuModal.classList.remove('show');
+            alert('✅ Menu berhasil diupdate!');
         });
 
-        // Tambahkan tombol checkout di modal cart
-        const originalRender = renderCartModal;
-        renderCartModal = function() {
-            originalRender();
-            const totalEl = document.getElementById('cartTotal');
-            const checkoutBtn = document.createElement('button');
-            checkoutBtn.className = 'btn-primary';
-            checkoutBtn.textContent = '✅ Checkout & Simpan Riwayat';
-            checkoutBtn.style.marginTop = '1rem';
-            checkoutBtn.onclick = checkout;
-            totalEl.parentNode.insertBefore(checkoutBtn, totalEl.nextSibling);
+        closeEditModal.addEventListener('click', () => editMenuModal.classList.remove('show'));
+        editMenuModal.addEventListener('click', (e) => { if (e.target === editMenuModal) editMenuModal.classList.remove('show'); });
+
+        // ============================================================
+        // ADMIN: KELOLA USER
+        // ============================================================
+        function renderUserTable() {
+            const users = getUsers();
+            userTableBody.innerHTML = Object.entries(users).map(([username, data]) => `
+                <tr>
+                    <td><strong>${username}</strong> ${data.role === 'admin' ? '👑' : ''}</td>
+                    <td>${data.role || 'user'}</td>
+                    <td>${data.securityQuestion || '-'}</td>
+                    <td>
+                        ${data.role !== 'admin' ? `<button class="btn-sm danger" onclick="deleteUser('${username}')">🗑️ Hapus</button>` : '<span style="color:#888;">Tidak bisa dihapus</span>'}
+                        ${data.role !== 'admin' ? `<button class="btn-sm primary" onclick="makeAdmin('${username}')">👑 Jadikan Admin</button>` : ''}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        window.deleteUser = function(username) {
+            if (!confirm(`Yakin hapus user "${username}"?`)) return;
+            const users = getUsers();
+            if (users[username] && users[username].role === 'admin') {
+                alert('Tidak bisa menghapus admin!');
+                return;
+            }
+            delete users[username];
+            saveUsers(users);
+            renderUserTable();
+            renderAdminDashboard();
+        };
+
+        window.makeAdmin = function(username) {
+            if (!confirm(`Jadikan "${username}" sebagai admin?`)) return;
+            const users = getUsers();
+            if (!users[username]) return;
+            users[username].role = 'admin';
+            saveUsers(users);
+            renderUserTable();
+            renderAdminDashboard();
+            alert(`✅ ${username} sekarang adalah admin!`);
         };
 
         // ============================================================
-        // FORGOT PASSWORD - auto fill question
+        // ADMIN: SEMUA RIWAYAT
         // ============================================================
-        forgotUser.addEventListener('input', function() {
-            const username = this.value.trim();
-            if (!username) {
-                forgotQuestion.value = '';
-                return;
-            }
-            const users = getUsers();
-            if (users[username]) {
-                const questionMap = {
-                    'nama_hewan': 'Nama hewan peliharaan pertama?',
-                    'sekolah': 'Nama sekolah dasar?',
-                    'film': 'Film favorit?',
-                    'makanan': 'Makanan favorit?'
-                };
-                forgotQuestion.value = questionMap[users[username].securityQuestion] || 'Pertanyaan tidak ditemukan';
-            } else {
-                forgotQuestion.value = 'Username tidak ditemukan';
-            }
-        });
+        function renderAllHistory() {
+            const all = getAllHistories();
+            historyTableBody.innerHTML = all.length === 0 ?
+                `<tr><td colspan="4" style="text-align:center;color:#888;">Belum ada riwayat pesanan.</td></tr>` :
+                all.map(h => `
+                    <tr>
+                        <td><strong>${h.username}</strong></td>
+                        <td>${h.date}</td>
+                        <td>${h.items.map(i => `${i.name} ×${i.qty}`).join(', ')}</td>
+                        <td style="color:#f5a623;font-weight:700;">Rp ${h.total.toLocaleString()}</td>
+                    </tr>
+                `).join('');
+        }
 
         // ============================================================
         // INIT
         // ============================================================
-        // Tambahkan user default jika belum ada
+        // Default users
         const defaultUsers = getUsers();
         if (!defaultUsers.admin) {
             defaultUsers.admin = {
                 password: 'admin123',
+                role: 'admin',
                 securityQuestion: 'nama_hewan',
                 securityAnswer: 'brownie'
             };
             saveUsers(defaultUsers);
+        }
+        // Default menu
+        if (!localStorage.getItem(MENU_KEY)) {
+            localStorage.setItem(MENU_KEY, JSON.stringify(defaultMenu));
         }
 
         checkSession();
