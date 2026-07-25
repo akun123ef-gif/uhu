@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <style>
-        /* ===== RESET & GLOBAL ===== */
         * {
             margin: 0;
             padding: 0;
@@ -25,34 +24,32 @@
             padding: 1rem;
         }
 
-        /* ===== LOGIN PAGE ===== */
-        .login-container {
+        /* ===== LOGIN/REGISTER/FORGOT CONTAINER ===== */
+        .auth-container {
             background: #1a1a1a;
             padding: 2.5rem 2rem;
             border-radius: 28px;
             border: 1px solid #2a2a2a;
-            max-width: 420px;
+            max-width: 440px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.6);
         }
 
-        .login-container .logo {
+        .auth-container .logo {
             text-align: center;
             font-size: 2.5rem;
             font-weight: 800;
             margin-bottom: 0.5rem;
         }
-        .login-container .logo span {
-            color: #f5a623;
-        }
-        .login-container .sub {
+        .auth-container .logo span { color: #f5a623; }
+        .auth-container .sub {
             text-align: center;
             color: #888;
             margin-bottom: 2rem;
             font-size: 0.95rem;
         }
 
-        .login-container label {
+        .auth-container label {
             display: block;
             font-weight: 600;
             font-size: 0.85rem;
@@ -60,7 +57,7 @@
             color: #ccc;
         }
 
-        .login-container input {
+        .auth-container input, .auth-container select {
             width: 100%;
             padding: 0.8rem 1rem;
             border-radius: 14px;
@@ -71,13 +68,14 @@
             margin-bottom: 1.2rem;
             transition: 0.2s;
         }
-        .login-container input:focus {
+        .auth-container input:focus, .auth-container select:focus {
             outline: none;
             border-color: #f5a623;
             box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.15);
         }
+        .auth-container select option { background: #1a1a1a; color: #fff; }
 
-        .login-container .btn-login {
+        .auth-container .btn-primary {
             width: 100%;
             padding: 0.9rem;
             border: none;
@@ -90,28 +88,26 @@
             transition: 0.2s;
             margin-top: 0.5rem;
         }
-        .login-container .btn-login:hover {
+        .auth-container .btn-primary:hover {
             background: #ffb833;
             transform: scale(1.02);
         }
 
-        .login-container .switch-auth {
+        .auth-container .switch-auth {
             text-align: center;
             margin-top: 1.2rem;
             color: #888;
             font-size: 0.9rem;
         }
-        .login-container .switch-auth a {
+        .auth-container .switch-auth a {
             color: #f5a623;
             cursor: pointer;
             text-decoration: none;
             font-weight: 600;
         }
-        .login-container .switch-auth a:hover {
-            text-decoration: underline;
-        }
+        .auth-container .switch-auth a:hover { text-decoration: underline; }
 
-        .login-container .error-msg {
+        .auth-container .error-msg {
             background: #2a0a0a;
             color: #ff6b6b;
             padding: 0.6rem 1rem;
@@ -121,11 +117,47 @@
             display: none;
             border-left: 3px solid #ff6b6b;
         }
-        .login-container .error-msg.show {
-            display: block;
+        .auth-container .error-msg.show { display: block; }
+
+        .auth-container .success-msg {
+            background: #0a2a0a;
+            color: #6bff6b;
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: none;
+            border-left: 3px solid #6bff6b;
+        }
+        .auth-container .success-msg.show { display: block; }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 1.2rem;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #f5a623;
+            margin: 0;
+            cursor: pointer;
         }
 
-        /* ===== MAIN APP (hidden by default) ===== */
+        .forgot-link {
+            color: #f5a623;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-align: right;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+        }
+        .forgot-link:hover { text-decoration: underline; }
+
+        /* ===== MAIN APP ===== */
         #app {
             display: none;
             width: 100%;
@@ -133,7 +165,6 @@
             padding: 1rem;
         }
 
-        /* ===== HEADER APP ===== */
         .app-header {
             display: flex;
             justify-content: space-between;
@@ -145,27 +176,18 @@
             border-bottom: 2px solid #2a2a2a;
         }
 
-        .app-header .logo h1 {
-            font-size: 2rem;
-            font-weight: 800;
-        }
-        .app-header .logo span {
-            color: #f5a623;
-        }
+        .app-header .logo h1 { font-size: 2rem; font-weight: 800; }
+        .app-header .logo span { color: #f5a623; }
 
         .app-header .right-group {
             display: flex;
             align-items: center;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
-        .app-header .user-info {
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-        .app-header .user-info strong {
-            color: #f5f5f5;
-        }
+        .app-header .user-info { color: #aaa; font-size: 0.9rem; }
+        .app-header .user-info strong { color: #f5f5f5; }
 
         .app-header .cart-badge {
             background: #f5a623;
@@ -181,10 +203,7 @@
             align-items: center;
             gap: 0.5rem;
         }
-        .app-header .cart-badge:hover {
-            transform: scale(1.04);
-            background: #ffb833;
-        }
+        .app-header .cart-badge:hover { transform: scale(1.04); background: #ffb833; }
 
         .app-header .logout-btn {
             background: transparent;
@@ -197,10 +216,20 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .app-header .logout-btn:hover {
-            border-color: #ff6b6b;
-            color: #ff6b6b;
+        .app-header .logout-btn:hover { border-color: #ff6b6b; color: #ff6b6b; }
+
+        .app-header .history-btn {
+            background: transparent;
+            border: 1px solid #2a5a3a;
+            color: #6bff6b;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
         }
+        .app-header .history-btn:hover { background: #0a2a0a; border-color: #6bff6b; }
 
         /* ===== FILTER ===== */
         .filter-wrap {
@@ -220,15 +249,8 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .filter-btn:hover {
-            border-color: #f5a623;
-            color: #fff;
-        }
-        .filter-btn.active {
-            background: #f5a623;
-            border-color: #f5a623;
-            color: #0f0f0f;
-        }
+        .filter-btn:hover { border-color: #f5a623; color: #fff; }
+        .filter-btn.active { background: #f5a623; border-color: #f5a623; color: #0f0f0f; }
 
         /* ===== MENU GRID ===== */
         .menu-grid {
@@ -251,54 +273,14 @@
             border-color: #f5a623;
             box-shadow: 0 12px 30px rgba(245, 166, 35, 0.08);
         }
-        .burger-card .emoji-big {
-            font-size: 3.8rem;
-            line-height: 1;
-            margin-bottom: 0.2rem;
-        }
-        .burger-card h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin: 0.4rem 0 0.2rem;
-        }
-        .burger-card .desc {
-            color: #a0a0a0;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin: 0.3rem 0 0.6rem;
-            flex: 1;
-        }
-        .burger-card .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            margin: 0.5rem 0 1rem;
-        }
-        .burger-card .tags span {
-            background: #2a2a2a;
-            padding: 0.2rem 0.9rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #bbb;
-        }
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0.4rem;
-        }
-        .price {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #f5a623;
-        }
-        .price small {
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: #777;
-        }
+        .burger-card .emoji-big { font-size: 3.8rem; line-height: 1; margin-bottom: 0.2rem; }
+        .burger-card h3 { font-size: 1.4rem; font-weight: 700; margin: 0.4rem 0 0.2rem; }
+        .burger-card .desc { color: #a0a0a0; font-size: 0.9rem; line-height: 1.5; margin: 0.3rem 0 0.6rem; flex: 1; }
+        .burger-card .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0 1rem; }
+        .burger-card .tags span { background: #2a2a2a; padding: 0.2rem 0.9rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: #bbb; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem; }
+        .price { font-size: 1.5rem; font-weight: 800; color: #f5a623; }
+        .price small { font-size: 0.9rem; font-weight: 400; color: #777; }
         .order-btn {
             background: #f5a623;
             border: none;
@@ -310,10 +292,7 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .order-btn:hover {
-            background: #ffb833;
-            transform: scale(1.04);
-        }
+        .order-btn:hover { background: #ffb833; transform: scale(1.04); }
 
         /* ===== MODAL ===== */
         .modal-overlay {
@@ -329,13 +308,13 @@
             align-items: center;
             z-index: 999;
         }
-        .modal-overlay.show {
-            display: flex;
-        }
+        .modal-overlay.show { display: flex; }
         .modal-box {
             background: #1a1a1a;
-            max-width: 440px;
+            max-width: 480px;
             width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
             padding: 2rem 1.8rem;
             border-radius: 28px;
             border: 1px solid #333;
@@ -345,10 +324,7 @@
             0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-        .modal-box h2 {
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-        }
+        .modal-box h2 { font-size: 1.6rem; margin-bottom: 1rem; }
         .modal-box .order-item {
             display: flex;
             justify-content: space-between;
@@ -365,15 +341,8 @@
             cursor: pointer;
             margin-left: 8px;
         }
-        .modal-box .order-item button:hover {
-            background: #ff6b6b;
-        }
-        .modal-box .total {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin: 1rem 0 1.2rem;
-            color: #f5a623;
-        }
+        .modal-box .order-item button:hover { background: #ff6b6b; }
+        .modal-box .total { font-size: 1.4rem; font-weight: 700; margin: 1rem 0 1.2rem; color: #f5a623; }
         .modal-box .close-modal {
             background: #333;
             border: none;
@@ -385,20 +354,25 @@
             width: 100%;
             transition: 0.2s;
         }
-        .modal-box .close-modal:hover {
-            background: #444;
+        .modal-box .close-modal:hover { background: #444; }
+        .empty-cart { color: #888; font-style: italic; padding: 0.8rem 0; }
+
+        .history-item {
+            background: #0f0f0f;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.6rem;
+            border-left: 3px solid #f5a623;
         }
-        .empty-cart {
-            color: #888;
-            font-style: italic;
-            padding: 0.8rem 0;
-        }
+        .history-item .h-date { color: #888; font-size: 0.75rem; }
+        .history-item .h-items { color: #ddd; font-size: 0.9rem; }
+        .history-item .h-total { color: #f5a623; font-weight: 700; }
 
         @media (max-width: 600px) {
             .app-header .logo h1 { font-size: 1.4rem; }
             .app-header .right-group { gap: 0.5rem; flex-wrap: wrap; }
             .menu-grid { grid-template-columns: 1fr; }
-            .login-container { padding: 1.8rem 1.2rem; }
+            .auth-container { padding: 1.8rem 1.2rem; }
         }
     </style>
 </head>
@@ -407,19 +381,27 @@
     <!-- ============================================================ -->
     <!-- LOGIN PAGE -->
     <!-- ============================================================ -->
-    <div class="login-container" id="loginPage">
+    <div class="auth-container" id="loginPage">
         <div class="logo">🍔 <span>Burger</span>Lab</div>
         <div class="sub">Login untuk memesan burger favoritmu</div>
 
         <div class="error-msg" id="loginError">Username atau password salah!</div>
+        <div class="success-msg" id="loginSuccess"></div>
 
         <label for="loginUser">Username</label>
-        <input type="text" id="loginUser" placeholder="Masukkan username" value="admin" />
+        <input type="text" id="loginUser" placeholder="Masukkan username" />
 
         <label for="loginPass">Password</label>
-        <input type="password" id="loginPass" placeholder="Masukkan password" value="admin123" />
+        <input type="password" id="loginPass" placeholder="Masukkan password" />
 
-        <button class="btn-login" id="loginBtn">🔑 Login</button>
+        <div class="remember-me">
+            <input type="checkbox" id="rememberMe" />
+            <label for="rememberMe">Ingat saya</label>
+        </div>
+
+        <div class="forgot-link" id="forgotLink">🔑 Lupa password?</div>
+
+        <button class="btn-primary" id="loginBtn">🔑 Login</button>
 
         <div class="switch-auth">
             Belum punya akun? <a id="switchToRegister">Daftar di sini</a>
@@ -427,13 +409,13 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- REGISTER PAGE (hidden) -->
+    <!-- REGISTER PAGE -->
     <!-- ============================================================ -->
-    <div class="login-container" id="registerPage" style="display:none;">
+    <div class="auth-container" id="registerPage" style="display:none;">
         <div class="logo">📝 <span>Daftar</span> Akun</div>
         <div class="sub">Buat akun baru untuk mulai memesan</div>
 
-        <div class="error-msg" id="registerError" style="display:none;"></div>
+        <div class="error-msg" id="registerError"></div>
 
         <label for="regUser">Username</label>
         <input type="text" id="regUser" placeholder="Pilih username" />
@@ -444,7 +426,18 @@
         <label for="regPassConfirm">Konfirmasi Password</label>
         <input type="password" id="regPassConfirm" placeholder="Ketik ulang password" />
 
-        <button class="btn-login" id="registerBtn">✅ Daftar</button>
+        <label for="regSecurityQuestion">Pertanyaan Keamanan (untuk reset password)</label>
+        <select id="regSecurityQuestion">
+            <option value="nama_hewan">Nama hewan peliharaan pertama?</option>
+            <option value="sekolah">Nama sekolah dasar?</option>
+            <option value="film">Film favorit?</option>
+            <option value="makanan">Makanan favorit?</option>
+        </select>
+
+        <label for="regSecurityAnswer">Jawaban</label>
+        <input type="text" id="regSecurityAnswer" placeholder="Jawaban pertanyaan keamanan" />
+
+        <button class="btn-primary" id="registerBtn">✅ Daftar</button>
 
         <div class="switch-auth">
             Sudah punya akun? <a id="switchToLogin">Login di sini</a>
@@ -452,7 +445,36 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- MAIN APP (hidden until login) -->
+    <!-- FORGOT PASSWORD PAGE -->
+    <!-- ============================================================ -->
+    <div class="auth-container" id="forgotPage" style="display:none;">
+        <div class="logo">🔑 <span>Reset</span> Password</div>
+        <div class="sub">Jawab pertanyaan keamanan untuk mereset password</div>
+
+        <div class="error-msg" id="forgotError"></div>
+        <div class="success-msg" id="forgotSuccess"></div>
+
+        <label for="forgotUser">Username</label>
+        <input type="text" id="forgotUser" placeholder="Masukkan username" />
+
+        <label for="forgotQuestion">Pertanyaan Keamanan</label>
+        <input type="text" id="forgotQuestion" disabled style="color:#888;" />
+
+        <label for="forgotAnswer">Jawaban</label>
+        <input type="text" id="forgotAnswer" placeholder="Masukkan jawaban" />
+
+        <label for="forgotNewPass">Password Baru</label>
+        <input type="password" id="forgotNewPass" placeholder="Buat password baru" />
+
+        <button class="btn-primary" id="resetBtn">🔄 Reset Password</button>
+
+        <div class="switch-auth">
+            <a id="backToLogin">← Kembali ke Login</a>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MAIN APP -->
     <!-- ============================================================ -->
     <div id="app">
         <div class="app-header">
@@ -464,11 +486,11 @@
                 <button class="cart-badge" id="cartBtn">
                     🛒 <span id="cartCount">0</span>
                 </button>
+                <button class="history-btn" id="historyBtn">📜 Riwayat</button>
                 <button class="logout-btn" id="logoutBtn">🚪 Logout</button>
             </div>
         </div>
 
-        <!-- FILTER -->
         <div class="filter-wrap" id="filterWrap">
             <button class="filter-btn active" data-filter="all">Semua</button>
             <button class="filter-btn" data-filter="classic">Klasik</button>
@@ -477,7 +499,6 @@
             <button class="filter-btn" data-filter="chicken">Ayam</button>
         </div>
 
-        <!-- MENU GRID -->
         <div class="menu-grid" id="menuGrid"></div>
     </div>
 
@@ -491,7 +512,20 @@
                 <div class="empty-cart">Belum ada pesanan.</div>
             </div>
             <div class="total" id="cartTotal">Total: Rp 0</div>
-            <button class="close-modal" id="closeModal">Tutup</button>
+            <button class="close-modal" id="closeCartModal">Tutup</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MODAL RIWAYAT -->
+    <!-- ============================================================ -->
+    <div class="modal-overlay" id="historyModal">
+        <div class="modal-box">
+            <h2>📜 Riwayat Pesanan</h2>
+            <div id="historyList">
+                <div class="empty-cart">Belum ada riwayat pesanan.</div>
+            </div>
+            <button class="close-modal" id="closeHistoryModal">Tutup</button>
         </div>
     </div>
 
@@ -516,6 +550,7 @@
         // ============================================================
         const USERS_KEY = 'burgerlab_users';
         const SESSION_KEY = 'burgerlab_session';
+        const HISTORY_KEY = 'burgerlab_history_';
 
         function getUsers() {
             return JSON.parse(localStorage.getItem(USERS_KEY)) || {};
@@ -529,12 +564,34 @@
             return JSON.parse(localStorage.getItem(SESSION_KEY)) || null;
         }
 
-        function setSession(username) {
-            localStorage.setItem(SESSION_KEY, JSON.stringify({ username, loginAt: Date.now() }));
+        function setSession(username, remember = false) {
+            localStorage.setItem(SESSION_KEY, JSON.stringify({ 
+                username, 
+                loginAt: Date.now(),
+                remember: remember
+            }));
         }
 
         function clearSession() {
             localStorage.removeItem(SESSION_KEY);
+        }
+
+        function getHistory(username) {
+            return JSON.parse(localStorage.getItem(HISTORY_KEY + username)) || [];
+        }
+
+        function saveHistory(username, history) {
+            localStorage.setItem(HISTORY_KEY + username, JSON.stringify(history));
+        }
+
+        function addToHistory(username, cartItems, total) {
+            const history = getHistory(username);
+            history.push({
+                date: new Date().toLocaleString('id-ID'),
+                items: cartItems.map(item => ({ name: item.name, qty: item.qty, price: item.price })),
+                total: total
+            });
+            saveHistory(username, history);
         }
 
         // ============================================================
@@ -542,6 +599,7 @@
         // ============================================================
         const loginPage = document.getElementById('loginPage');
         const registerPage = document.getElementById('registerPage');
+        const forgotPage = document.getElementById('forgotPage');
         const app = document.getElementById('app');
         const currentUser = document.getElementById('currentUser');
 
@@ -549,15 +607,29 @@
         const loginPass = document.getElementById('loginPass');
         const loginBtn = document.getElementById('loginBtn');
         const loginError = document.getElementById('loginError');
+        const loginSuccess = document.getElementById('loginSuccess');
+        const rememberMe = document.getElementById('rememberMe');
+        const forgotLink = document.getElementById('forgotLink');
 
         const regUser = document.getElementById('regUser');
         const regPass = document.getElementById('regPass');
         const regPassConfirm = document.getElementById('regPassConfirm');
+        const regSecurityQuestion = document.getElementById('regSecurityQuestion');
+        const regSecurityAnswer = document.getElementById('regSecurityAnswer');
         const registerBtn = document.getElementById('registerBtn');
         const registerError = document.getElementById('registerError');
 
+        const forgotUser = document.getElementById('forgotUser');
+        const forgotQuestion = document.getElementById('forgotQuestion');
+        const forgotAnswer = document.getElementById('forgotAnswer');
+        const forgotNewPass = document.getElementById('forgotNewPass');
+        const resetBtn = document.getElementById('resetBtn');
+        const forgotError = document.getElementById('forgotError');
+        const forgotSuccess = document.getElementById('forgotSuccess');
+
         const switchToRegister = document.getElementById('switchToRegister');
         const switchToLogin = document.getElementById('switchToLogin');
+        const backToLogin = document.getElementById('backToLogin');
 
         const logoutBtn = document.getElementById('logoutBtn');
 
@@ -567,20 +639,35 @@
         function showLogin() {
             loginPage.style.display = 'block';
             registerPage.style.display = 'none';
+            forgotPage.style.display = 'none';
             app.style.display = 'none';
             loginError.classList.remove('show');
+            loginSuccess.classList.remove('show');
         }
 
         function showRegister() {
             loginPage.style.display = 'none';
             registerPage.style.display = 'block';
+            forgotPage.style.display = 'none';
             app.style.display = 'none';
             registerError.style.display = 'none';
+        }
+
+        function showForgot() {
+            loginPage.style.display = 'none';
+            registerPage.style.display = 'none';
+            forgotPage.style.display = 'block';
+            app.style.display = 'none';
+            forgotError.style.display = 'none';
+            forgotSuccess.style.display = 'none';
+            forgotQuestion.value = '';
+            forgotUser.value = '';
         }
 
         function showApp(username) {
             loginPage.style.display = 'none';
             registerPage.style.display = 'none';
+            forgotPage.style.display = 'none';
             app.style.display = 'block';
             currentUser.textContent = username;
             renderMenu('all');
@@ -594,17 +681,23 @@
             if (!username || !password) {
                 loginError.textContent = 'Username dan password tidak boleh kosong!';
                 loginError.classList.add('show');
+                loginSuccess.classList.remove('show');
                 return;
             }
 
             const users = getUsers();
-            if (users[username] && users[username] === password) {
-                setSession(username);
+            if (users[username] && users[username].password === password) {
+                setSession(username, rememberMe.checked);
                 loginError.classList.remove('show');
-                showApp(username);
+                loginSuccess.textContent = '✅ Login berhasil!';
+                loginSuccess.classList.add('show');
+                setTimeout(() => {
+                    showApp(username);
+                }, 500);
             } else {
                 loginError.textContent = 'Username atau password salah!';
                 loginError.classList.add('show');
+                loginSuccess.classList.remove('show');
             }
         }
 
@@ -612,10 +705,12 @@
             const username = regUser.value.trim();
             const password = regPass.value.trim();
             const confirm = regPassConfirm.value.trim();
+            const question = regSecurityQuestion.value;
+            const answer = regSecurityAnswer.value.trim();
 
             registerError.style.display = 'none';
 
-            if (!username || !password || !confirm) {
+            if (!username || !password || !confirm || !answer) {
                 registerError.textContent = 'Semua field harus diisi!';
                 registerError.style.display = 'block';
                 return;
@@ -646,12 +741,62 @@
                 return;
             }
 
-            users[username] = password;
+            users[username] = {
+                password: password,
+                securityQuestion: question,
+                securityAnswer: answer.toLowerCase()
+            };
             saveUsers(users);
             alert('✅ Pendaftaran berhasil! Silakan login.');
             showLogin();
             loginUser.value = username;
             loginPass.value = '';
+        }
+
+        function handleResetPassword() {
+            const username = forgotUser.value.trim();
+            const answer = forgotAnswer.value.trim().toLowerCase();
+            const newPass = forgotNewPass.value.trim();
+
+            forgotError.style.display = 'none';
+            forgotSuccess.style.display = 'none';
+
+            if (!username || !answer || !newPass) {
+                forgotError.textContent = 'Semua field harus diisi!';
+                forgotError.style.display = 'block';
+                return;
+            }
+
+            if (newPass.length < 4) {
+                forgotError.textContent = 'Password baru minimal 4 karakter!';
+                forgotError.style.display = 'block';
+                return;
+            }
+
+            const users = getUsers();
+            if (!users[username]) {
+                forgotError.textContent = 'Username tidak ditemukan!';
+                forgotError.style.display = 'block';
+                return;
+            }
+
+            if (users[username].securityAnswer !== answer) {
+                forgotError.textContent = 'Jawaban keamanan salah!';
+                forgotError.style.display = 'block';
+                return;
+            }
+
+            users[username].password = newPass;
+            saveUsers(users);
+            forgotSuccess.textContent = '✅ Password berhasil direset! Silakan login.';
+            forgotSuccess.classList.add('show');
+            forgotError.style.display = 'none';
+
+            setTimeout(() => {
+                showLogin();
+                loginUser.value = username;
+                loginPass.value = '';
+            }, 1500);
         }
 
         function handleLogout() {
@@ -688,8 +833,13 @@
         registerBtn.addEventListener('click', handleRegister);
         regPassConfirm.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleRegister(); });
 
+        resetBtn.addEventListener('click', handleResetPassword);
+        forgotNewPass.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleResetPassword(); });
+
         switchToRegister.addEventListener('click', showRegister);
         switchToLogin.addEventListener('click', showLogin);
+        backToLogin.addEventListener('click', showLogin);
+        forgotLink.addEventListener('click', showForgot);
 
         logoutBtn.addEventListener('click', handleLogout);
 
@@ -817,6 +967,47 @@
             });
         }
 
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Keranjang kosong!');
+                return;
+            }
+
+            const session = getSession();
+            if (!session) return;
+
+            const total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+            addToHistory(session.username, cart, total);
+            alert('✅ Pesanan berhasil! Cek riwayat pesananmu.');
+            cart = [];
+            updateCartUI();
+            document.getElementById('cartModal').classList.remove('show');
+        }
+
+        // ============================================================
+        // HISTORY
+        // ============================================================
+        function renderHistory() {
+            const session = getSession();
+            if (!session) return;
+
+            const history = getHistory(session.username);
+            const container = document.getElementById('historyList');
+
+            if (history.length === 0) {
+                container.innerHTML = `<div class="empty-cart">Belum ada riwayat pesanan.</div>`;
+                return;
+            }
+
+            container.innerHTML = history.reverse().map(h => `
+                <div class="history-item">
+                    <div class="h-date">📅 ${h.date}</div>
+                    <div class="h-items">${h.items.map(i => `${i.name} ×${i.qty}`).join(', ')}</div>
+                    <div class="h-total">Total: Rp ${h.total.toLocaleString()}</div>
+                </div>
+            `).join('');
+        }
+
         // ============================================================
         // MODAL
         // ============================================================
@@ -825,11 +1016,59 @@
             renderCartModal();
             cartModal.classList.add('show');
         });
-        document.getElementById('closeModal').addEventListener('click', () => {
+        document.getElementById('closeCartModal').addEventListener('click', () => {
             cartModal.classList.remove('show');
         });
         cartModal.addEventListener('click', (e) => {
             if (e.target === cartModal) cartModal.classList.remove('show');
+        });
+
+        const historyModal = document.getElementById('historyModal');
+        document.getElementById('historyBtn').addEventListener('click', () => {
+            renderHistory();
+            historyModal.classList.add('show');
+        });
+        document.getElementById('closeHistoryModal').addEventListener('click', () => {
+            historyModal.classList.remove('show');
+        });
+        historyModal.addEventListener('click', (e) => {
+            if (e.target === historyModal) historyModal.classList.remove('show');
+        });
+
+        // Tambahkan tombol checkout di modal cart
+        const originalRender = renderCartModal;
+        renderCartModal = function() {
+            originalRender();
+            const totalEl = document.getElementById('cartTotal');
+            const checkoutBtn = document.createElement('button');
+            checkoutBtn.className = 'btn-primary';
+            checkoutBtn.textContent = '✅ Checkout & Simpan Riwayat';
+            checkoutBtn.style.marginTop = '1rem';
+            checkoutBtn.onclick = checkout;
+            totalEl.parentNode.insertBefore(checkoutBtn, totalEl.nextSibling);
+        };
+
+        // ============================================================
+        // FORGOT PASSWORD - auto fill question
+        // ============================================================
+        forgotUser.addEventListener('input', function() {
+            const username = this.value.trim();
+            if (!username) {
+                forgotQuestion.value = '';
+                return;
+            }
+            const users = getUsers();
+            if (users[username]) {
+                const questionMap = {
+                    'nama_hewan': 'Nama hewan peliharaan pertama?',
+                    'sekolah': 'Nama sekolah dasar?',
+                    'film': 'Film favorit?',
+                    'makanan': 'Makanan favorit?'
+                };
+                forgotQuestion.value = questionMap[users[username].securityQuestion] || 'Pertanyaan tidak ditemukan';
+            } else {
+                forgotQuestion.value = 'Username tidak ditemukan';
+            }
         });
 
         // ============================================================
@@ -838,7 +1077,11 @@
         // Tambahkan user default jika belum ada
         const defaultUsers = getUsers();
         if (!defaultUsers.admin) {
-            defaultUsers.admin = 'admin123';
+            defaultUsers.admin = {
+                password: 'admin123',
+                securityQuestion: 'nama_hewan',
+                securityAnswer: 'brownie'
+            };
             saveUsers(defaultUsers);
         }
 
